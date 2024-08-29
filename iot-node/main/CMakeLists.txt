@@ -1,0 +1,32 @@
+idf_component_register(
+    SRCS
+        "main.cc"
+        "main_module/main_function.cc"
+        "tasks/tasks.cc"
+        "read_max30102/read_max30102.cc"
+        "circular_buffer/circular_buffer.cc"
+        "data_processor/data_processor.cc"
+        "inference/inference.cc"
+        "inference/model.cc"
+        "gateway/mqtt5_lib.c"
+        "gateway/gateway.cc"
+        "gateway/wifi_manager.c"
+        "gateway/http_server.c"
+    INCLUDE_DIRS 
+        "."
+        "main_module"
+        "tasks"
+        "read_max30102"
+        "circular_buffer"
+        "data_processor"
+        "inference"
+        "gateway"
+    REQUIRES
+        "arduino"
+        "esp-tflite-micro"
+        "max3010x"
+        "nvs_flash"
+        "mqtt"
+        "esp_http_server"
+        "json"
+)
