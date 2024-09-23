@@ -1,5 +1,5 @@
 #include "gateway.h"
-#include "mqtt5_lib.h"
+#include "mqtt_lib.h"
 #include "wifi_manager.h"
 #include "http_server.h"
 #include "freertos/FreeRTOS.h"
@@ -37,17 +37,17 @@ void f_onConnectCallback(void)
 {
     ESP_LOGI(TAG, "Connected to MQTT broker");
 
-    mqtt5_subscribe(TOPIC_DEVICE, 1);
+    mqtt_subscribe(TOPIC_DEVICE, 1);
 }
 
 void f_sendRegistrationRequest(void)
 {
-    mqtt5_set_on_connect_callback(f_onConnectCallback);
-    mqtt5_set_on_message_callback(f_onMessageCallback);
+    mqtt_set_on_connect_callback(f_onConnectCallback);
+    mqtt_set_on_message_callback(f_onMessageCallback);
 
     while (!device_registered)
     {
-        mqtt5_publish(TOPIC_REGISTRATION, DEVICE_ID, strlen(DEVICE_ID), 1, 0);
+        mqtt_publish(TOPIC_REGISTRATION, DEVICE_ID, strlen(DEVICE_ID), 1, 0);
 
         vTaskDelay(5000);
     }
@@ -67,7 +67,7 @@ void f_setupGateway(void)
         vTaskDelay(1000);
     }
 
-    setup_mqtt5();
+    setup_mqtt();
 
     f_sendRegistrationRequest();
 
@@ -91,7 +91,7 @@ void f_transmitPacketPPG(uint32_t u4_index, uint32_t *pu4_irData, uint32_t *pu4_
     memcpy(packet.irData, pu4_irData, DATA_LEN * sizeof(uint32_t));
     memcpy(packet.redData, pu4_redData, DATA_LEN * sizeof(uint32_t));
 
-    mqtt5_publish(TOPIC_PPG, (const char *)&packet, sizeof(packet), 1, 0);
+    mqtt_publish(TOPIC_PPG, (const char *)&packet, sizeof(packet), 1, 0);
 
     ESP_LOGI(TAG, "PPG data transmitted successfully");
 }

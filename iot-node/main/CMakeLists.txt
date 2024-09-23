@@ -8,7 +8,7 @@ idf_component_register(
         "data_processor/data_processor.cc"
         "inference/inference.cc"
         "inference/model.cc"
-        "gateway/mqtt5_lib.c"
+        "gateway/mqtt_lib.c"
         "gateway/gateway.cc"
         "gateway/wifi_manager.c"
         "gateway/http_server.c"

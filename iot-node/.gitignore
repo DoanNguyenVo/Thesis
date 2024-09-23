@@ -3,3 +3,4 @@ dependencies.lock
 .vscode/
 build/
 managed_components/
+sdkconfig.old
